@@ -14,12 +14,19 @@ import textwrap
 # Set page configuration
 st.set_page_config(page_title="Image Captioning System", layout="wide")
 
-# Configure Gemini API
-genai.configure(api_key="AIzaSyDPHzfxEl3baBHyRDQ_-jaLii2O4_KkWz0")
+# --- Configuration Section ---
+# IMPORTANT: Replace these with your own API keys or use environment variables
+# Configure Gemini API (Get your API key from: https://ai.google.dev/)
+# genai.configure(api_key="YOUR_GEMINI_API_KEY")  # Uncomment and add your key
 
-# Load BLIP processor and model for generating base image captions
+# Alternatively, use environment variables:
+# import os
+# genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+# --- Model Loading ---
 @st.cache_resource
 def load_blip_model():
+    """Load BLIP model for initial image captioning"""
     processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
     model = AutoModelForImageTextToText.from_pretrained("Salesforce/blip-image-captioning-base")
     return processor, model
